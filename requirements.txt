@@ -1,0 +1,4 @@
+fastapi
+uvicorn
+transformers==4.38.2
+torch
