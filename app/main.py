@@ -14,7 +14,13 @@ model_path = "app/model"
 
 try:
     tokenizer = AutoTokenizer.from_pretrained(model_path, local_files_only=True)
-    model = AutoModelForSequenceClassification.from_pretrained(model_path, local_files_only=True)
+    model = AutoModelForSequenceClassification.from_pretrained(
+    model_path,
+    local_files_only=True,
+    ignore_mismatched_sizes=True,
+    torch_dtype=torch.float32,
+    from_tf=False
+)
     model.eval()
 except Exception as e:
     print("❌ Error loading model or tokenizer:", e)
