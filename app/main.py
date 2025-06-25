@@ -5,17 +5,20 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
-# Debug logs for Railway startup
+# Debug: show file tree
 print("🔍 Current Working Directory:", os.getcwd())
 print("📁 Files in /app:", os.listdir("app") if os.path.exists("app") else "Missing")
 print("📁 Files in /app/model:", os.listdir("app/model") if os.path.exists("app/model") else "Missing")
 
-# Load model and tokenizer from local path
 model_path = "app/model"
 
-tokenizer = AutoTokenizer.from_pretrained(model_path, local_files_only=True)
-model = AutoModelForSequenceClassification.from_pretrained(model_path, local_files_only=True)
-model.eval()
+try:
+    tokenizer = AutoTokenizer.from_pretrained(model_path, local_files_only=True)
+    model = AutoModelForSequenceClassification.from_pretrained(model_path, local_files_only=True)
+    model.eval()
+except Exception as e:
+    print("❌ Error loading model or tokenizer:", e)
+    raise
 
 app = FastAPI()
 
