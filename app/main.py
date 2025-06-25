@@ -8,7 +8,7 @@ import torch.nn.functional as F
 app = FastAPI()
 
 # Load model and tokenizer
-model_path = "./model"
+model_path = "app/model"
 tokenizer = AutoTokenizer.from_pretrained(model_path, local_files_only=True)
 model = AutoModelForSequenceClassification.from_pretrained(model_path, local_files_only=True)
 model.eval()
